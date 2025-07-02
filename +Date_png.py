@@ -6,16 +6,16 @@ import base64
 
 # Konfigurasi halaman
 st.set_page_config(
-    page_title="+date.png", 
+    page_title="Stempel + Tanggal", 
     layout="centered",
     page_icon="🖋️"
 )
 
-st.title("🖋️ Tambahkan Tanggal ke Gambarmu")
+st.title("🖋️ Tambahkan Tanggal ke Stempel")
 st.markdown("---")
 
 # === STEP 1: Upload Gambar ===
-st.subheader("📁 Step 1: Unggah Gambar")
+st.subheader("📁 Step 1: Unggah Gambar Stempel")
 uploaded_file = st.file_uploader(
     "Pilih file gambar stempel", 
     type=["png", "jpg", "jpeg"],
@@ -58,11 +58,10 @@ st.markdown("---")
 # === STEP 3: Pengaturan Tambahan ===
 st.subheader("⚙️ Step 3: Pengaturan Teks")
 
-# Pengaturan otomatis
-ukuran_font = 75  # Fixed font size
+# Pengaturan yang bisa diatur pengguna
 jarak_bawah = 70  # Fixed spacing
 
-col1, col2 = st.columns(2)
+col1, col2, col3 = st.columns(3)
 with col1:
     warna_teks = st.selectbox(
         "Warna Teks:",
@@ -71,7 +70,17 @@ with col1:
     )
     
 with col2:
-    st.info("📏 **Pengaturan Otomatis:**\n- Ukuran Font: 75px\n- Jarak dari Bawah: 70px")
+    ukuran_font = st.slider(
+        "Ukuran Font:",
+        min_value=20,
+        max_value=150,
+        value=75,
+        step=5,
+        help="Sesuaikan ukuran font sesuai kebutuhan"
+    )
+
+with col3:
+    st.info(f"📏 **Pengaturan:**\n- Ukuran Font: {ukuran_font}px\n- Jarak dari Bawah: 70px")
 
 # Mapping warna
 color_map = {
@@ -214,7 +223,7 @@ st.markdown("---")
 st.markdown(
     """
     <div style='text-align: center; color: #666; font-size: 0.8em;'>
-        🖋️ Tambahkan tanggal pada gambarmu~
+        🖋️ Aplikasi Stempel + Tanggal | Dibuat dengan ❤️ menggunakan Streamlit
     </div>
     """, 
     unsafe_allow_html=True
